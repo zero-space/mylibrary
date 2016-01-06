@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<script>
+//匹配子项 ：小括号()  (还有另外一个意思，分组操作)
+/*
+* 把正则的整体叫做(母亲)
+* 然后把左边第一个小括号里面的正则，叫做这个第一个子项（母亲的第一个孩子）
+* 第二个小括号就是第二个孩子
+*
+* */
+var str ='2015-6-7';
+var re=/(\d+)(-)/g;
+
+str=str.replace(re,function($0,$1,$2){
+    //第一个参数 $0（母亲），第二个参数（第一个孩子），第3个参数(第二个孩子)
+    alert($2);
+
+    return $1+'.';
+});
+alert(str)
+</script>
+</body>
+</html>

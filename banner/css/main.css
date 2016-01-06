@@ -1,0 +1,24 @@
+*{padding: 0;margin: 0}
+li{list-style: none}
+body{padding:50px;}
+/**/
+.poster_wrap{width: 800px; height: 270px; position: relative;}
+.poster_main{ width800px; height270px;}
+.poster_main .poster_cell{ position:absolute; top:0;left:0}
+.poster_main .poster_cell a,.poster_main .poster_cell img{display:block;}
+.poster_wrap .prev_btn{ width:100px; height:270px; position:absolute;top: 0; left: 0;cursor: pointer; z-index: 10; background: url("../img/btn_l.png") no-repeat center}
+.poster_wrap .next_btn{ width:100px; height:270px; position:absolute; top:0; right: 0;cursor: pointer; z-index: 10; background: url("../img/btn_r.png") no-repeat center}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

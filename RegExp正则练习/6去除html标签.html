@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<div>替换前</div>
+<textarea name="" id="t1" cols="30" rows="10"></textarea><br/>
+
+<div>替换后</div>
+<textarea name="" id="t2" cols="30" rows="10"></textarea><br/>
+<input id="btn" type="button" value="确定"/>
+<script>
+window.onload=function(){
+
+    var t1=document.getElementById("t1");
+    var t2=document.getElementById("t2");
+    var btn=document.getElementById("btn");
+
+    //var re=/<\w+>/g;
+    var re=/<[^>]+>/g;
+    //var re2=/\n+|\t+|&nbsp;+|&gt;+/g;
+    var re2=/\n+|\t+|&[\w]+;/g;
+
+    btn.onclick=function(){
+        var text=t1.value.replace(re,'');
+        text=text.replace(re2,'');
+        t2.value=text;
+    }
+
+}
+
+</script>
+</body>
+</html>

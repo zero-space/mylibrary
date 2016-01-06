@@ -1,0 +1,24 @@
+    <!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input type="text"/>
+<input value="确定" type="button"/>
+<script>
+window.onload=function(){
+    var oIpt=document.getElementsByTagName('input');
+    var re=/^[1-9]\d{4,11}$/;
+    oIpt[1].onclick=function(){
+        if(re.test(oIpt[0].value)){
+            alert("是QQ号");
+        }else{
+            alert("不是QQ号");
+        }
+    }
+}
+</script>
+</body>
+</html>

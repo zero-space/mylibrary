@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    *{margin:0 auto;padding: 0}
+    div{width: 100px; height: 100px; background: red; position: absolute;left: 0;top: 0}
+</style>
+<body>
+<div id="div"></div>
+<script>
+    window.onload=function(){
+        var oDiv=document.getElementById('div');
+        /*
+        oDiv.onclick=function(){
+            elasticAnimate(this,{
+                left:500
+            });
+        };
+        */
+
+        oDiv.onclick=function(){
+            elasticAnimate(this,{
+                left:500
+            },function(){
+                elasticAnimate(this, {
+                    height: 500
+                },function(){
+                    elasticAnimate(this, {width:100,height:100})
+                })
+            });
+        };
+
+    };
+    /*
+     弹性:
+     速度 += (目标点 - 当前值)/系数;  //6 , 7 , 8
+     速度 *= 摩擦系数;   // 0.7 0.75
+     */
+    function elasticAnimate(obj,json,fn){
+        clearInterval(obj.timer);
+        var json2=copy(json);
+        obj.timer=setInterval(function(){
+            var bStop=true;
+            for(var attr in json){
+                var iCur= attr=='opacity'?Math.round(getStyle(obj,'opacity')*100):parseInt(getStyle(obj,attr));
+                json2[attr] += (json[attr]-iCur)/6;
+                json2[attr] *=0.75;
+                if(Math.abs(json2[attr])<=1 && Math.abs(json[attr]-iCur)<=1){
+                    if(attr=='opacity'){
+                        obj.style.opacity=json[attr]/100;
+                        obj.style.filter='alpha(opacity='+json[attr]+')';
+                    }else{
+                        obj.style[attr]=json[attr]+'px';
+                    }
+                }else{
+                    bStop=false;
+                    if(attr=='opacity'){
+                        obj.style.opacity=(json2[attr]+iCur)/100;
+                        obj.style.filter='alpha(opacity='+(json2[attr]+iCur)+')';
+                    }else{
+                        obj.style[attr]=json2[attr]+iCur+'px';
+                    }
+                }
+            }
+            if(bStop){
+                clearInterval(obj.timer);
+                fn && fn.call(obj);
+            }
+        },30);
+
+        function copy( obj ){
+            var o = {};
+            for(var i in obj ){
+                o[i] = 0;
+            }
+            return o;
+        }
+    }
+    function getStyle(obj,attr){
+        if(obj.currentStyle){
+            return obj.currentStyle[attr];
+        }else{
+            return getComputedStyle(obj,false)[attr];
+        }
+    }
+
+</script>
+</body>
+</html>

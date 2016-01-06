@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<script>
+var str='haljkjfaowije123jfo0awet523lsjdfa8987';
+
+/*
+function findNumb(str){
+    var arr=[];
+    var tmp='';
+    for(var i=0;i<str.length;i++){
+        if(str.charAt(i)<='9' && str.charAt(i)>=0){
+            //arr.push(str.charAt(i));
+            tmp+=str.charAt(i);
+        }else{
+            if(tmp){
+                arr.push(tmp);
+                tmp='';
+            }
+        }
+    }
+    if(tmp){
+        arr.push(tmp);
+        tmp='';
+    }
+    return arr;
+}
+*/
+
+function findNumb(str){
+    return str.match(/\d+/g);
+}
+
+alert(findNumb(str));
+
+
+</script>
+</body>
+</html>

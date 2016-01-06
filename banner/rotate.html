@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>旋转木马 幻灯片开发</title>
+	<link rel="stylesheet" href="./css/main.css">
+	<script src="../js/jquery-1.11.3.js"></script>
+	<script src="./js/main.js"></script>
+</head>
+<body>
+
+<div class="O_poster poster_wrap" data-setting='{
+			"width":800,
+			"height":270,
+			"posterWidth":640,
+			"posterHeight":270,
+			"scale":0.9,
+			"speed":500,
+			"verticalAlign":"middle"	
+}'>
+	<div class="prev_btn"></div>
+		<ul class="poster_main">
+			<li class="poster_cell"><a href="#"><img src="img/1.jpg" alt="" width="100%" height="100%"></a></li>
+			<li class="poster_cell"><a href="#"><img src="img/2.jpg" alt="" width="100%" height="100%"></a></li>
+			<li class="poster_cell"><a href="#"><img src="img/3.jpg" alt="" width="100%" height="100%"></a></li>
+			<li class="poster_cell"><a href="#"><img src="img/4.jpg" alt="" width="100%" height="100%"></a></li>
+			<li class="poster_cell"><a href="#"><img src="img/5.jpg" alt="" width="100%" height="100%"></a></li>
+		</ul>
+	<div class="next_btn"></div>
+</div>
+<div class="O_poster poster_wrap" data-setting='{
+			"width":1000,
+			"height":270,
+			"posterWidth":640,
+			"posterHeight":270,
+			"scale":0.9,
+			"speed":500,
+			"verticalAlign":"middle"	
+}'>
+	<div class="prev_btn"></div>
+		<ul class="poster_main">
+			<li class="poster_cell"><a href="#"><img src="img/1.jpg" alt="" width="100%" height="100%"></a></li>
+			<li class="poster_cell"><a href="#"><img src="img/2.jpg" alt="" width="100%" height="100%"></a></li>
+			<li class="poster_cell"><a href="#"><img src="img/3.jpg" alt="" width="100%" height="100%"></a></li>
+			<li class="poster_cell"><a href="#"><img src="img/4.jpg" alt="" width="100%" height="100%"></a></li>
+			<li class="poster_cell"><a href="#"><img src="img/5.jpg" alt="" width="100%" height="100%"></a></li>
+		</ul>
+	<div class="next_btn"></div>
+</div>
+
+<script>
+$(function(){
+
+	//var carousel=new Carousel($('.O_poster').eq(0));
+/*
+	var settting={
+			width:1000,
+			height:270,
+			posterWidth:640,
+			posterHeight:270,
+			scale:0.9,
+			speed:500,
+			verticalAlign:"middle"	
+		};
+*/
+	Carousel.init($(".O_poster"))
+
+})
+
+</script>
+</body>
+</html>

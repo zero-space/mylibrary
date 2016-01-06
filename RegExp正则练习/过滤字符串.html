@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+</body>
+<script>
+window.onload=function(){
+    /*
+    var str='简单的说99就是，用一小段简单的各99999字符的组合，即叫做 正则表达式，去实9999现复杂的：字符串匹配，查找你到88888你所需要的内容，以便后999999期提取出来你所要的内容。';
+    var re=/\d/g;
+
+    str=str.replace(re,'*');
+    alert(str);
+    */
+    var str="菲称仁爱礁赴京17艘中国船均在菲军监视之下";
+    var re=/菲称|中国船|监视之下/g;
+    /*
+    * replace的写法 : 字符串.replace(正则，新的字符串);
+    * 函数的第一个参数是匹配成功的字符
+    * */
+    str=str.replace(re,function(str){
+        var result='';
+
+        for(var i=0;i<str.length;i++){
+            result +='*';
+        }
+
+        return result;
+    });
+    alert(str);
+}
+</script>
+</html>

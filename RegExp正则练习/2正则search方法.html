@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+/*
+search:正则去匹配字符串,如果匹配成功,就返回匹配成功的位置,如果匹配失败返回-1;
+search： 字符串.serach(正则)
+*/
+
+/*
+正则中默认: 是区分大小写的
+如果不区分大小写,在正则的最后加标示i(不区分大小写);
+*/
+
+var str='abaeser';
+var re=/S/i;
+var re=new RegExp('S','i');
+
+alert(str.search(re))
+
+</script>
+</body>
+</html>

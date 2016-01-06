@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+/*
+replace:正则去匹配字符串,匹配成功的字符去替代成新的字符串;
+replace的写法 : 字符串.replace(正则，新的字符串);
+*/
+var str='aaaAAAAAAAA';
+var re=/a/gi;
+str=str.replace(re,'b');
+alert(str)
+</script>
+</body>
+</html>

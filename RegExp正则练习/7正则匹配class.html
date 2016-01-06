@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<ul>
+    <li class="box1">1</li>
+    <li>2</li>
+    <li class="box1box2">3</li>
+    <li>4</li>
+    <li class="box1 box2">5</li>
+</ul>
+<script>
+window.onload=function(){
+    var aLi=getClass(document,'box1');
+
+    for(var i=0;i<aLi.length;i++){
+        aLi[i].style.background='#f60'
+
+    }
+};
+/*
+function getClass(obj,className){
+    var aEls=obj.getElementsByTagName('*');
+    var arr=[];
+
+    for(var i=0;i<aEls.length;i++){
+        var setClass=aEls[i].className.split(' ');
+        for(var j=0;j<setClass.length;j++){
+            if(setClass[j]==className){
+                arr.push(aEls[i]);
+                break;
+            }
+        }
+    }
+    return arr;
+}
+*/
+function getClass(obj,className){
+    var aEls=obj.getElementsByTagName('*');
+    var arr=[];
+    var re=new RegExp('\\b'+className+'\\b');
+    for(var i=0;i<aEls.length;i++){
+        var setClass=aEls[i].className.split(' ');
+        for(var j=0;j<setClass.length;j++){
+            if(setClass[j]==className){
+                arr.push(aEls[i]);
+                break;
+            }
+        }
+    }
+    return arr;
+}
+</script>
+</body>
+</html>

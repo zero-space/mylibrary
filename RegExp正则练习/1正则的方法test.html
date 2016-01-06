@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+/*
+test:正则去匹配字符串，如果匹配成功就返回真,如果匹配失败返回假
+test的写法: 正则.test(字符串)
+
+\s  空格
+\S  非空格
+\d  数字
+\D  非数字
+\w  字符      (字母,数字,下划线_)
+\W  非字符
+
+*/
+
+/*
+var str='abcdef';
+var re=/bd/;
+
+alert(re.test(str));
+*/
+
+var str='348979641t94191';
+var re=/\D/;
+
+if(re.test(str)){
+    alert("不完全是数字");
+}else{
+    alert("完全是数字");
+}
+
+
+
+
+
+</script>
+</body>
+</html>

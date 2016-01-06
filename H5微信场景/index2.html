@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=640; user-scalable=no,user-scalable=no,target-densityDpi=device-dpi" />
+    <link rel="stylesheet" href="main.css">
+    <script type="text/javascript" src="../js/jquery-1.11.3.js"></script>
+</head>
+<body>
+<div id="main">
+   <canvas id="c1" width="640" height="940"></canvas>
+    <ul id="list">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <div id="arrow"></div>
+</div>
+</body>
+<script>
+document.ontouchmove=function(){
+    return false;
+};
+$(function(){
+    var main=$('#main');
+    var list=$('#list');
+    var li=list.find('>li');
+    var viewHeight=$(window).height();
+    var viewWeight=$(window).width();
+
+    main.css({height:viewHeight});
+    li.css('backgroundPosition',(640-nowView())/2+'px 0');
+
+    slideCanvas();
+    /*canvas-start*/
+    function slideCanvas(){
+        var c=$('#c1');
+        var gc= c.get(0).getContext('2d');
+        var img=new Image();
+        var bBtn=true;
+        c.attr({height:viewHeight});
+        img.src='img/a.png';
+        img.onload=function(){
+            gc.drawImage(img,(640-nowView())/2,0,nowView(),viewHeight);
+
+            gc.strokeStyle='blue';
+            gc.lineWidth=50;        //闲粗60
+            gc.lineCap='round';     //设置绘制点的形状
+            gc.globalCompositeOperation='destination-out';
+            c.on('touchstart',function(ev){
+                var touch=ev.originalEvent.changedTouches[0];
+                var x=touch.pageX-$(this).offset().left;
+                var y=touch.pageY-$(this).offset().top;
+
+                /*gc.arc(x,y,30,0,360*Math.PI/180);
+                gc.fill();*/
+                if(bBtn){
+                    bBtn=false;
+                    gc.moveTo(x,y);     //moveTo按下的坐标
+                    gc.lineTo(x+1,y+1);     //是一下一个点的坐标
+                }else{
+                    gc.lineTo(x,y);     //是一下一个点的坐标
+                }
+                gc.stroke();
+                c.on('touchmove.move',function(ev){
+                    var touch=ev.originalEvent.changedTouches[0];
+                    var x=touch.pageX-$(this).offset().left;
+                    var y=touch.pageY-$(this).offset().top;
+                    gc.lineTo(x,y);
+                    gc.stroke();
+                });
+                c.on('touchend.move',function(){
+                    bBtn=true;
+                    var imgData=gc.getImageData(0,0,640,viewHeight);        //获取屏幕所有的像素点
+                    var allPx=imgData.width*imgData.height;                 //一共多少个像素点
+                    var num=0;
+                    console.log(imgData.data);
+                    for(var i=0;i<allPx;i++){
+                        if(imgData.data[4*i+3]==0){
+                            num++;
+                        }
+                    }
+                    if(num>allPx/2){
+                        c.animate({opacity:0},1000,function(){
+                            $(this).remove();
+                        })
+                    }
+
+                    c.off('.move');
+                })
+            })
+        }
+    }
+    /*canvas-end*/
+
+    slideImg();
+    function slideImg(){
+        var startY=0;
+        var step=1/4;
+        var nowIndex=0;
+        var nextOrPrevIndex=0;
+        var bBtn=true;
+
+        li.css('backgroundPosition',(640-nowView())/2+'px 0');
+        li.on('touchstart',function(ev){
+            if(bBtn){
+                bBtn=false;
+                var touch=ev.originalEvent.changedTouches[0];
+                startY=touch.pageY;
+                nowIndex = $(this).index();
+                li.on('touchmove.move',function(ev){
+                    var touch=ev.originalEvent.changedTouches[0];
+                    $(this).siblings().hide();
+                    if(touch.pageY<startY){     //↑
+                        nextOrPrevIndex= nowIndex ==li.length-1? 0: nowIndex+1;
+                        li.eq(nextOrPrevIndex).show().css({
+                            'transform':'translate(0,'+(viewHeight+touch.pageY-startY)+'px)'
+                        })
+                    }else{      //↓
+                        nextOrPrevIndex= nowIndex ==0? li.length-1: nowIndex-1;
+                        li.eq(nextOrPrevIndex).show().css({
+                            'transform':'translate(0,'+(-viewHeight+touch.pageY-startY)+'px)'
+                        })
+                    }
+                    li.removeClass('zIndex');
+                    li.eq(nextOrPrevIndex).addClass('zIndex');
+                    //Math.abs((touch.pageY-startY))/viewHeight;
+                     $(this).css({
+                         'transform':'translate(0,'+(touch.pageY-startY)*step+'px) scale('+(1-Math.abs((touch.pageY-startY))*step/viewHeight)+')'
+                     });
+                });
+                li.on('touchend.move',function(ev) {
+                    var touch=ev.originalEvent.changedTouches[0];
+                    if(touch.pageY<startY){     //↑
+                        li.eq(nowIndex).css({'transform':'translate(0,'+(-viewHeight*step)+'px) scale('+(1-step)+')'});
+                    }else{      //↓
+                        li.eq(nowIndex).css({'transform':'translate(0,'+(viewHeight*step)+'px) scale('+(1-step)+')'});
+                    }
+                    li.css({'transition':'0.3s'});
+                    li.eq(nextOrPrevIndex).css({'transform':'translate(0,0)'});
+
+                    li.off('.move')
+                });
+            }
+            li.on('transitionEnd webkitTransitionEnd',function(){
+                resetFn();
+            });
+
+            function resetFn(){
+                li.css({'transition':''});
+                li.css({'transform':''});
+                li.eq(nextOrPrevIndex).removeClass('zIndex').siblings().hide();
+                bBtn=true;
+            }
+        });
+    }
+
+    /*视口宽度*/
+    function nowView(){
+        var w=640*viewHeight/960;
+        w =w>640?w:640;
+        /*
+         640  =   w
+         /      /
+         960      viewHeight
+         * */
+        return w;
+    }
+})
+</script>
+</html>

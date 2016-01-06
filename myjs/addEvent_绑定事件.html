@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<!--
+	IE与Opear方
+	绑定事件：el.attchhEvent("on"+type,callback)
+	卸载事件: el.detachEvent("on"+type,callback)
+	创建事件: document.createEventObject()
+	派发事件: el.fireEvent(type,event)
+
+	W3C方
+	绑定事件：el.addEventListener(type,callback,[phase])  类型  回调函数  使用捕获
+	卸载事件: el.removeEventListenter(type,callback,[phase])  类型  回调函数  使用捕获
+	创建事件: el.createEvent(types)
+	初始化事件：event.initEvent();
+	派发事件: el.dispatchEvent(event)
+	-->
+</body>
+<script>
+function addEvent(el,type,callback,useCaptrue){
+	if(el.dispatchEvent){//W3c方式优先
+		el.addEventListener(type,callback,!!useCaptrue);
+	}else{
+		el.attchhEvent("on"+type,callback	);
+	}
+	return callback; //返回callback方便卸载绑定时使用
+}
+</script>
+</html>
